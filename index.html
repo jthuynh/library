@@ -1,7 +1,7 @@
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    Style Sheets
+    <!-- Style Sheets -->
     <link href="css/reset.css" rel="stylesheet" type="text/css" media="all" />
     <link href="css/stylesheet.css" rel="stylesheet" type="text/css" media="screen" />
 
@@ -10,31 +10,29 @@
 </head>
 
 <body>
-    <button data-modal-target="#modal">Open Modal</button>
-    <div class="modal" id="Modal">
+    <button id="modal-btn" class="button">Click Here</button>
+
+    <div id="my-modal" class="modal">
+        <div class="modal-content">
         <div class="modal-header">
-            <div class="title">Example Modal</div>
-            <button data-close-button class="close-button">&times;</button>
+            <span class="close">&times;</span>
+            <h2>Add a new book</h2>
+            
         </div>
-        <div class="modal-body">Modal's body</div>
+        <div class="modal-body">
+            <form>
+                <input type="text" name="title" placeholder="Title">
+                <input type="text" name="author" placeholder="Author">
+                <input type="text" name="pages" placeholder="Pages">
+                <input type="checkbox" name="read" id="read" value="read">
+                <label for="read">Read?</label>
+            </form>
+        </div>
+        <div class="modal-footer"></div>
+        </div>
     </div>
-    
-    <div id="overlay"></div>
     <script src="script.js"></script>
 </body>
 
-</html> -->
+</html> 
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Modal</title>
-  <link href="styles.css" rel="stylesheet">
-  <script defer src="script.js"></script>
-</head>
-<body>
-</body>
-</html>
