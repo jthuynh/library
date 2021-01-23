@@ -11,12 +11,19 @@ Book.prototype.changeStatus = function() {
     (this.read == true) ? this.read = false : this.read = true;
 }
 
+function getUserInput() {
+    
+}
+
 function addBookToLibrary() {
+    const newBook = getUserInput();
+
+    myLibrary.push(newBook);
     // To inherent an object use : Object.create(Book.prototype)
     // To create an object : use new
-  // do stuff here
-  // function here to...
-  // take user’s input and store the new book objects into an array
+    // do stuff here
+    // function here to...
+    // take user’s input and store the new book objects into an array
 }
 
 // function to display books on their own card
