@@ -1,42 +1,6 @@
-let myLibrary = ["Circe", "Clean Code", "Banapples"];
-
-function Book(author, title, numPages, read) {
-    this.author = author;
-    this.title = title;
-    this.numPages = numPages;
-    this.read = read;
-}
-
-Book.prototype.changeStatus = function() {
-    (this.read == true) ? this.read = false : this.read = true;
-}
-
-function getUserInput() {
-
-}
-
-function addBookToLibrary() {
-    const newBook = getUserInput();
-
-    myLibrary.push(newBook);
-    // To inherent an object use : Object.create(Book.prototype)
-    // To create an object : use new
-    // do stuff here
-    // function here to...
-    // take user’s input and store the new book objects into an array
-}
-
-// function to display books on their own card
-
-// New book button: author, title, #pages, read or not
-
-// Add delete button to each book's display
-
-// button to change books read status (toggle read status of book prototype instance)
-
-// add local storage
-// add cloud storage
-
+let myLibrary = [new Book('clean code','a','23','false'), 
+  new Book('fancy feast','b','54','true'), new Book('happiness','rober5t','354','false')];
+ 
 // Get DOM Elements
 const modal = document.querySelector('#my-modal');
 const modalBtn = document.querySelector('#modal-btn');
@@ -63,3 +27,65 @@ function outsideClick(e) {
     modal.style.display = 'none';
   }
 }
+
+function Book(title, author, numPages, read) {
+    this.title = title;
+    this.author = author;
+    this.numPages = numPages;
+    this.read = read;
+}
+
+Book.prototype.changeStatus = function() {
+    (this.read == true) ? this.read = false : this.read = true;
+}
+
+const submitBtn = document.getElementById('submit');
+submit.addEventListener('click', addBookToLibrary);
+
+// function to display books on their own card
+function getUserInput(e) {
+    // get input from the the modal and put it in to a new object
+    const title = document.getElementById('title').value;
+    const author = document.getElementById('author').value;
+    const pages = document.getElementById('pages').value;
+    const read = document.getElementById('read').checked;
+
+    const newBook = new Book(title, author, pages, read);
+    console.log(newBook);
+    e.preventDefault();
+
+    return newBook;
+}
+
+
+function addBookToLibrary(e) {
+    const newBook = getUserInput(e);
+    myLibrary.push(newBook);
+    console.log(myLibrary);
+    // close modal
+    closeModal();
+    document.getElementById('form').reset();
+    // display the books again
+
+}
+
+// display books in library
+function displayBooks() {
+  const wrapper = document.querySelector('.wrapper');
+  console.log(wrapper);
+  for (let i = 0; i < myLibrary.length; i++) {
+    console.log(i);
+    let div = document.createElement('div');
+    div.classList.add('book');
+    div.setAttribute('data-indexnumber', i);
+    wrapper.appendChild(div);
+  }
+}
+
+displayBooks();
+// Add delete button to each book's display
+
+
+// add local storage
+// add cloud storage
+
