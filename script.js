@@ -71,14 +71,14 @@ function addBookToLibrary(e) {
 
 // display books in library
 function displayBooks() {
-  const wrapper = document.querySelector('.wrapper');
-  console.log(wrapper);
+  const grid = document.querySelector('.book-grid');
+  console.log(grid);
   for (let i = 0; i < myLibrary.length; i++) {
     console.log(i);
     let div = document.createElement('div');
     div.classList.add('book');
     div.setAttribute('data-indexnumber', i);
-    wrapper.appendChild(div);
+    grid.appendChild(div);
   }
 }
 

@@ -27,7 +27,7 @@ body {
   border-radius: 5px;
   cursor: pointer;
   display: block;
-  margin: 150px auto 40px auto;
+  margin: 40px auto 40px auto;
   text-align: center;
 }
 
@@ -104,8 +104,13 @@ body {
     opacity: 1;
   }
 }
-  
-.wrapper {
+
+.grid-wrapper {
+  display:flex;
+  align-items: center;
+  justify-content: center;
+}
+.book-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: auto;
