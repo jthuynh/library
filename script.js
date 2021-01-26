@@ -72,12 +72,44 @@ function addBookToLibrary(e) {
 // display books in library
 function displayBooks() {
   const grid = document.querySelector('.book-grid');
-  console.log(grid);
+  const br = document.createElement("br");
   for (let i = 0; i < myLibrary.length; i++) {
     console.log(i);
     let div = document.createElement('div');
     div.classList.add('book');
+    
+    // if attribute already exists, then skip
     div.setAttribute('data-indexnumber', i);
+
+    let h2 = document.createElement('H2');
+    h2.classList.add("book-text");
+    let title = document.createTextNode(myLibrary[i].title);
+    let author = document.createTextNode(myLibrary[i].author);
+    let pages = document.createTextNode(myLibrary[i].pages);
+
+    h2.appendChild(title);
+    h2.appendChild(br.cloneNode());
+    h2.appendChild(author);
+    h2.appendChild(br.cloneNode());
+    h2.appendChild(pages);
+    h2.appendChild(br.cloneNode());
+
+
+    let readBtn = document.createElement("BUTTON");
+    let readBtnText = document.createTextNode("READ");
+    readBtn.classList.add('book-btn');
+    readBtn.setAttribute("id", "read-btn");
+    readBtn.appendChild(readBtnText);
+    h2.appendChild(readBtn);
+
+    let removeBtn = document.createElement("BUTTON");
+    let removeBtnText = document.createTextNode("REMOVE");
+    removeBtn.classList.add('book-btn');
+    removeBtn.setAttribute("id", "remove-btn");
+    removeBtn.appendChild(removeBtnText);
+    h2.appendChild(removeBtn);
+
+    div.appendChild(h2);
     grid.appendChild(div);
   }
 }
