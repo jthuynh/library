@@ -61,61 +61,72 @@ function getUserInput(e) {
 function addBookToLibrary(e) {
     const newBook = getUserInput(e);
     myLibrary.push(newBook);
-    console.log(myLibrary);
-    // close modal
     closeModal();
     document.getElementById('form').reset();
-    // display the books again
-
+    displayBooks();
 }
 
 // display books in library
 function displayBooks() {
   const grid = document.querySelector('.book-grid');
   const br = document.createElement("br");
-  for (let i = 0; i < myLibrary.length; i++) {
-    console.log(i);
-    let div = document.createElement('div');
-    div.classList.add('book');
-    
-    // if attribute already exists, then skip
-    div.setAttribute('data-indexnumber', i);
-
-    let h2 = document.createElement('H2');
-    h2.classList.add("book-text");
-    let title = document.createTextNode(myLibrary[i].title);
-    let author = document.createTextNode(myLibrary[i].author);
-    let pages = document.createTextNode(myLibrary[i].pages);
-
-    h2.appendChild(title);
-    h2.appendChild(br.cloneNode());
-    h2.appendChild(author);
-    h2.appendChild(br.cloneNode());
-    h2.appendChild(pages);
-    h2.appendChild(br.cloneNode());
-
-
-    let readBtn = document.createElement("BUTTON");
-    let readBtnText = document.createTextNode("READ");
-    readBtn.classList.add('book-btn');
-    readBtn.setAttribute("id", "read-btn");
-    readBtn.appendChild(readBtnText);
-    h2.appendChild(readBtn);
-
-    let removeBtn = document.createElement("BUTTON");
-    let removeBtnText = document.createTextNode("REMOVE");
-    removeBtn.classList.add('book-btn');
-    removeBtn.setAttribute("id", "remove-btn");
-    removeBtn.appendChild(removeBtnText);
-    h2.appendChild(removeBtn);
-
-    div.appendChild(h2);
-    grid.appendChild(div);
+  console.log(document.querySelectorAll('.book').length);
+  const curNumCards = document.querySelectorAll('.book').length;
+  if (curNumCards < myLibrary.length) {
+    for (let i = curNumCards; i < myLibrary.length; i++) {
+      let div = document.createElement('div');
+      div.classList.add('book');
+      
+      // if attribute already exists, then skip
+      div.setAttribute('data-indexnumber', i);
+  
+      let h2 = document.createElement('H2');
+      h2.classList.add("book-text");
+      let title = document.createTextNode(myLibrary[i].title);
+      let author = document.createTextNode(myLibrary[i].author);
+      let pages = document.createTextNode(myLibrary[i].numPages);
+  
+      h2.appendChild(title);
+      h2.appendChild(br.cloneNode());
+      h2.appendChild(author);
+      h2.appendChild(br.cloneNode());
+      h2.appendChild(pages);
+      h2.appendChild(br.cloneNode());
+  
+  
+      let readBtn = document.createElement("BUTTON");
+      let readBtnText = document.createTextNode("READ");
+      readBtn.classList.add('book-btn');
+      readBtn.setAttribute("id", "read-btn");
+      readBtn.appendChild(readBtnText);
+      h2.appendChild(readBtn);
+  
+      let removeBtn = document.createElement("BUTTON");
+      // let removeBtnText = document.createTextNode("REMOVE");
+      removeBtn.classList.add('book-btn');
+      
+      removeBtn.innerHTML = '<i class="fa fa-trash-o icon" aria-hidden="true"></i>';
+      
+      removeBtn.setAttribute("id", "remove-btn");
+      // removeBtn.appendChild(removeBtnText);
+      h2.appendChild(removeBtn);
+  
+      div.appendChild(h2);
+      grid.appendChild(div);
+    }
   }
+
+  console.log(myLibrary);
 }
 
 displayBooks();
-// Add delete button to each book's display
+
+// figure out how to display books 1 at a time without repeats
+// check if book being added is already in the array
+// add logic for remove button
+// add logic for read button
+// reset grid 
+// recreate grid
 
 
 // add local storage

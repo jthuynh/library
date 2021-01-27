@@ -1,7 +1,8 @@
 :root {
     --modal-duration: 1s;
-    --modal-color: #428bca;
-  }
+    --modal-color: #64c564;
+    --modal-hover-color: #6bcd6e;
+}
 
 header {
   text-align: center;
@@ -17,10 +18,12 @@ body {
   height: 100vh;
   align-items: center;
   justify-content: center;
+  
+
 }
 
 .modal-btn {
-  background: #428bca;
+  background: var(--modal-color);
   padding: 1em 2em;
   color: #fff;
   border: 0;
@@ -29,10 +32,11 @@ body {
   display: block;
   margin: 40px auto 40px auto;
   text-align: center;
+  font-family: 'Yusei Magic', 'Roboto';
 }
 
 .modal-btn:hover {
-  background: #3876ac;
+  background: var(--modal-hover-color);
 }
 
 .modal {
@@ -66,11 +70,13 @@ body {
   color: #fff;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
+  font-family: 'Yusei Magic';
 }
 
 .modal-body {
   padding: 10px 20px;
   background: #fff;
+  font-family: 'Yusei Magic';
 }
 
 .modal-footer {
@@ -105,43 +111,78 @@ body {
   }
 }
 
+#form {
+  font-family: 'Yusei Magic';
+}
+
 .grid-wrapper {
   display:flex;
   align-items: center;
   justify-content: center;
 }
+
 .book-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: auto;
   width: 80%;
   margin: 0;
-  /* display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  flex-direction: row;
-  float: left;
-  width: 80%;
-  height: 100%; */
-  /* align-self: baseline; */
 }
 
 .book {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border: 1px solid black;
   border-radius: 5px;
-  height: 200px;
+  height: 250px;
   width: 250px;
-  background-color: coral;
+  background-color: #e5e5e5;
 }
 
 .book-text {
   font-size: 30px;
   color:rgba(0, 0, 0, 0.17);
   text-align: center;
+  font-family: 'Yusei Magic', sans-serif;
 }
 
 .book-btn {
-  height: 3em;
-  width: 6em;
-  margin: 10px 10px;
+  /* padding: 0; */
+  display: inline-block;
+  text-align: center;
+  margin: auto;
+  padding: 10px;
+}
+
+#read-btn {
+  font-family: 'Roboto';
+  font-size: 18px;
+  background-color: #ffcccb;
+  outline: none;
+  border-radius: 5px;
+  border: 1px solid #ffc6c4;
+  color: #eb7373;
+}
+
+#read-btn:hover{
+  background-color: #f6c0c0;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#remove-btn {
+  font-size: 40px;
+  padding-top: 10px;
+  border: none;
+  outline: none;
+  background-color: #e5e5e5;
+  vertical-align: middle;
+  height: 60px;
+}
+
+#remove-btn:hover {
+  color: #f94c56;
+  text-decoration: none;
+  cursor: pointer;
 }
