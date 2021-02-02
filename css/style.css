@@ -2,6 +2,12 @@
     --modal-duration: 1s;
     --modal-color: #64c564;
     --modal-hover-color: #6bcd6e;
+    --read-color: #eb7373;
+    --read-background-color: #ffcccb;
+    --read-hover: #f6c0c0;
+    --notread-color: coral;
+    --notread-background-color: orange;
+    --notread-hover: green;
 }
 
 header {
@@ -18,8 +24,6 @@ body {
   height: 100vh;
   align-items: center;
   justify-content: center;
-  
-
 }
 
 .modal-btn {
@@ -155,18 +159,34 @@ body {
   padding: 10px;
 }
 
-#read-btn {
+.read-btn {
   font-family: 'Roboto';
   font-size: 18px;
-  background-color: #ffcccb;
+  background-color: var(--read-background-color);
   outline: none;
   border-radius: 5px;
-  border: 1px solid #ffc6c4;
-  color: #eb7373;
+  border: 1px solid var(--read-background-color);
+  color: var(--read-color);
 }
 
-#read-btn:hover{
-  background-color: #f6c0c0;
+.read-btn:hover{
+  background-color: var(--read-hover);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.notread-btn {
+  font-family: 'Roboto';
+  font-size: 18px;
+  background-color: var(--notread-background-color);
+  outline: none;
+  border-radius: 5px;
+  border: 1px solid var(--notread-background-color);
+  color: var(--notread-color);
+}
+
+.notread-btn:hover {
+  background-color: var(--notread-hover);
   text-decoration: none;
   cursor: pointer;
 }

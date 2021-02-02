@@ -29,14 +29,15 @@ function outsideClick(e) {
 }
 
 function Book(title, author, numPages, read) {
-    this.title = title;
-    this.author = author;
-    this.numPages = numPages;
-    this.read = read;
+  this.title = title;
+  this.author = author;
+  this.numPages = numPages;
+  this.read = read;
 }
 
+
 Book.prototype.changeStatus = function() {
-    (this.read == true) ? this.read = false : this.read = true;
+  (this.read == 'true') ? this.read = 'false' : this.read = 'true';
 }
 
 const submitBtn = document.getElementById('submit');
@@ -95,36 +96,85 @@ function displayBooks() {
   
   
       let readBtn = document.createElement("BUTTON");
-      let readBtnText = document.createTextNode("READ");
       readBtn.classList.add('book-btn');
+
+      let readBtnText;
+      if (myLibrary[i].read == 'true') {
+        readBtnText = document.createTextNode("READ");
+        readBtn.classList.add('read-btn');
+      } else {
+        readBtnText = document.createTextNode("NOT READ");
+        readBtn.classList.add('notread-btn');
+      }
       readBtn.setAttribute("id", "read-btn");
+      readBtn.setAttribute('data-readnumber', i);
       readBtn.appendChild(readBtnText);
       h2.appendChild(readBtn);
   
       let removeBtn = document.createElement("BUTTON");
-      // let removeBtnText = document.createTextNode("REMOVE");
       removeBtn.classList.add('book-btn');
       
-      removeBtn.innerHTML = '<i class="fa fa-trash-o icon" aria-hidden="true"></i>';
+      removeBtn.innerHTML = `<i class="fa fa-trash-o icon" aria-hidden="true"></i>`;
       
       removeBtn.setAttribute("id", "remove-btn");
-      // removeBtn.appendChild(removeBtnText);
+      removeBtn.setAttribute('data-removenumber', i);
       h2.appendChild(removeBtn);
   
       div.appendChild(h2);
       grid.appendChild(div);
     }
   }
+}
 
-  console.log(myLibrary);
+// console.log(btns);
+function toggleRead(e) {
+  let curBook = myLibrary[e.target.getAttribute("data-readnumber")];
+  
+  if (curBook.read == 'true') {
+    console.log("inside read");
+    e.target.classList.remove("read-btn");
+    e.target.classList.add("notread-btn");
+    e.target.innerHTML = "NOT READ";
+  } else {
+    console.log("inside notread");
+    e.target.classList.remove("notread-btn");
+    e.target.classList.add("read-btn");
+    e.target.innerHTML = "READ";
+  }
+
+  curBook.changeStatus();
 }
 
 displayBooks();
+const readBtns = document.querySelectorAll('#read-btn');
+readBtns.forEach(button => button.addEventListener('click', toggleRead));
 
-// figure out how to display books 1 at a time without repeats
+function removeBook(e) {
+  console.log(e.target);
+  let curBook = myLibrary[e.target.getAttribute("data-removenumber")];
+  console.log(e.target.parentElement);
+  console.log(curBook);
+  // if (curBook.read == 'true') {
+  //   console.log("inside read");
+  //   e.target.classList.remove("read-btn");
+  //   e.target.classList.add("notread-btn");
+  //   e.target.innerHTML = "NOT READ";
+  // } else {
+  //   console.log("inside notread");
+  //   e.target.classList.remove("notread-btn");
+  //   e.target.classList.add("read-btn");
+  //   e.target.innerHTML = "READ";
+  // }
+
+  // curBook.changeStatus();
+}
+
+const removeBtns = document.querySelectorAll('#remove-btn');
+removeBtns.forEach(button => button.addEventListener('click', removeBook));
+
+
 // check if book being added is already in the array
 // add logic for remove button
-// add logic for read button
 // reset grid 
 // recreate grid
 
