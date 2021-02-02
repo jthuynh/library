@@ -206,3 +206,11 @@ body {
   text-decoration: none;
   cursor: pointer;
 }
+
+.fa-book:before {
+  font-size: 35px;
+}
+
+.fa-plus:before {
+  font-size: 25px;
+}

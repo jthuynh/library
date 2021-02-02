@@ -150,23 +150,17 @@ const readBtns = document.querySelectorAll('#read-btn');
 readBtns.forEach(button => button.addEventListener('click', toggleRead));
 
 function removeBook(e) {
-  console.log(e.target);
-  let curBook = myLibrary[e.target.getAttribute("data-removenumber")];
-  console.log(e.target.parentElement);
-  console.log(curBook);
-  // if (curBook.read == 'true') {
-  //   console.log("inside read");
-  //   e.target.classList.remove("read-btn");
-  //   e.target.classList.add("notread-btn");
-  //   e.target.innerHTML = "NOT READ";
-  // } else {
-  //   console.log("inside notread");
-  //   e.target.classList.remove("notread-btn");
-  //   e.target.classList.add("read-btn");
-  //   e.target.innerHTML = "READ";
-  // }
+  let index = e.target.parentElement.getAttribute("data-removenumber");
+  // let curBook = myLibrary[index];
+  myLibrary.splice(index, 1);
+  displayBooks();
+  console.log(myLibrary);
+  let bookElem = document.querySelector(`div[data-indexnumber="${index}"`);
+  // console.log(bookElem);
+  bookElem.remove();
 
-  // curBook.changeStatus();
+  // TODO: renumber the array
+
 }
 
 const removeBtns = document.querySelectorAll('#remove-btn');
@@ -174,7 +168,6 @@ removeBtns.forEach(button => button.addEventListener('click', removeBook));
 
 
 // check if book being added is already in the array
-// add logic for remove button
 // reset grid 
 // recreate grid
 
