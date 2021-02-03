@@ -52,7 +52,7 @@ function getUserInput(e) {
     const read = document.getElementById('read').checked;
 
     const newBook = new Book(title, author, pages, read);
-    console.log(newBook);
+    // console.log(newBook);
     e.preventDefault();
 
     return newBook;
@@ -71,7 +71,7 @@ function addBookToLibrary(e) {
 function displayBooks() {
   const grid = document.querySelector('.book-grid');
   const br = document.createElement("br");
-  console.log(document.querySelectorAll('.book').length);
+  // console.log(document.querySelectorAll('.book').length);
   const curNumCards = document.querySelectorAll('.book').length;
   if (curNumCards < myLibrary.length) {
     for (let i = curNumCards; i < myLibrary.length; i++) {
@@ -107,7 +107,7 @@ function displayBooks() {
         readBtn.classList.add('notread-btn');
       }
       readBtn.setAttribute("id", "read-btn");
-      readBtn.setAttribute('data-readnumber', i);
+      readBtn.addEventListener('click', toggleRead);
       readBtn.appendChild(readBtnText);
       h2.appendChild(readBtn);
   
@@ -117,7 +117,7 @@ function displayBooks() {
       removeBtn.innerHTML = `<i class="fa fa-trash-o icon" aria-hidden="true"></i>`;
       
       removeBtn.setAttribute("id", "remove-btn");
-      removeBtn.setAttribute('data-removenumber', i);
+      removeBtn.addEventListener('click', removeBook);
       h2.appendChild(removeBtn);
   
       div.appendChild(h2);
@@ -126,9 +126,8 @@ function displayBooks() {
   }
 }
 
-// console.log(btns);
 function toggleRead(e) {
-  let curBook = myLibrary[e.target.getAttribute("data-readnumber")];
+  let curBook = myLibrary[e.target.parentElement.parentElement.getAttribute("data-indexnumber")];
   
   if (curBook.read == 'true') {
     console.log("inside read");
@@ -150,23 +149,31 @@ const readBtns = document.querySelectorAll('#read-btn');
 readBtns.forEach(button => button.addEventListener('click', toggleRead));
 
 function removeBook(e) {
-  let index = e.target.parentElement.getAttribute("data-removenumber");
-  // let curBook = myLibrary[index];
-  myLibrary.splice(index, 1);
-  displayBooks();
-  console.log(myLibrary);
+  let index = e.target.closest("div").getAttribute("data-indexnumber");
   let bookElem = document.querySelector(`div[data-indexnumber="${index}"`);
-  // console.log(bookElem);
   bookElem.remove();
+  myLibrary.splice(index, 1);
 
-  // TODO: renumber the array
-
+  displayBooks();
+  updateArray();
 }
 
 const removeBtns = document.querySelectorAll('#remove-btn');
 removeBtns.forEach(button => button.addEventListener('click', removeBook));
 
+function updateArray() {
+  const grid = document.querySelector('.book-grid');
 
+  for (let i = 0; i < myLibrary.length; i++) {
+    let curBook = grid.children[i];
+    if (curBook.getAttribute("data-indexnumber") != i.toString()) {
+      curBook.setAttribute("data-indexnumber", i);
+    }
+  }
+}
+
+const grid = document.querySelector('.book-grid');
+console.log(grid.children[0]);
 // check if book being added is already in the array
 // reset grid 
 // recreate grid
