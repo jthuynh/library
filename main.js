@@ -1,14 +1,3 @@
-// let myLibrary = [new Book('clean code','a',23,false), 
-//   new Book('fancy feast','b',54, true), new Book('happiness','rober5t',354,false)];
-
-// let myLibrary = localStorage.getItem('library', 'myLibrary') ? JSON.parse(localStorage.getItem('library', 'myLibrary')) : [];
-
-// let myLibrary = localStorage.getItem('library')
-//   ? JSON.parse(localStorage.getItem('library'))
-//   : [];
-
-// localStorage.setItem('library', JSON.stringify(myLibrary));
-
 // Get DOM Elements
 const modal = document.querySelector('#my-modal');
 const modalBtn = document.querySelector('#modal-btn');
@@ -36,16 +25,15 @@ function outsideClick(e) {
   }
 }
 
-function Book(title, author, numPages, read) {
-  this.title = title;
-  this.author = author;
-  this.numPages = numPages;
-  this.read = read;
+class Book {
+  constructor(title, author, numPages, read) {
+    this.title = title;
+    this.author = author;
+    this.numPages = numPages;
+    this.read = read;
+  }
 }
 
-Book.prototype.changeStatus = function() {
-  (this.read == true) ? this.read = false : this.read = true;
-}
 
 const submitBtn = document.getElementById('submit');
 submit.addEventListener('click', addBookToLibrary);
@@ -56,7 +44,7 @@ function getUserInput(e) {
     const pages = document.getElementById('pages').value;
     const read = document.getElementById('read').checked;
 
-    const newBook = new Book(title, author, pages, read);
+    let newBook = new Book(title, author, pages, read);
     e.preventDefault();
 
     return newBook;
@@ -100,7 +88,6 @@ function displayBooks() {
       h2.appendChild(pages);
       h2.appendChild(br.cloneNode());
   
-  
       let readBtn = document.createElement("BUTTON");
       readBtn.classList.add('book-btn');
 
@@ -136,18 +123,18 @@ function toggleRead(e) {
   let curBook = myLibrary[e.target.closest("div").getAttribute("data-indexnumber")];
 
   if (curBook.read == true) {
-    // console.log("inside read");
+    console.log("inside read");
     e.target.classList.remove("read-btn");
     e.target.classList.add("notread-btn");
     e.target.innerHTML = "NOT READ";
+    curBook.read = false;
   } else {
-    // console.log("inside notread");
+    console.log("inside notread");
     e.target.classList.remove("notread-btn");
     e.target.classList.add("read-btn");
     e.target.innerHTML = "READ";
+    curBook.read = true;
   }
-  console.log(myLibrary);
-  curBook.changeStatus();
   saveStorage();
 }
 
@@ -193,14 +180,4 @@ function restoreStorage() {
 }
 
 restoreStorage();
-
-
-
-// check if book being added is already in the array
-// reset grid 
-// recreate grid
-
-
-// add local storage
-// add cloud storage
 
