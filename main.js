@@ -179,3 +179,8 @@ function restoreStorage() {
 
 restoreStorage();
 
+const googleAuth = new firebase.auth.GoogleAuthProvider();
+
+function googleSignIn() {
+  firebase.auth().signInWithPopup(googleAuth);
+}
