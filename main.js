@@ -1,6 +1,14 @@
-let myLibrary = [new Book('clean code','a','23','false'), 
-  new Book('fancy feast','b','54','true'), new Book('happiness','rober5t','354','false')];
- 
+// let myLibrary = [new Book('clean code','a',23,false), 
+//   new Book('fancy feast','b',54, true), new Book('happiness','rober5t',354,false)];
+
+// let myLibrary = localStorage.getItem('library', 'myLibrary') ? JSON.parse(localStorage.getItem('library', 'myLibrary')) : [];
+
+// let myLibrary = localStorage.getItem('library')
+//   ? JSON.parse(localStorage.getItem('library'))
+//   : [];
+
+// localStorage.setItem('library', JSON.stringify(myLibrary));
+
 // Get DOM Elements
 const modal = document.querySelector('#my-modal');
 const modalBtn = document.querySelector('#modal-btn');
@@ -35,24 +43,20 @@ function Book(title, author, numPages, read) {
   this.read = read;
 }
 
-
 Book.prototype.changeStatus = function() {
-  (this.read == 'true') ? this.read = 'false' : this.read = 'true';
+  (this.read == true) ? this.read = false : this.read = true;
 }
 
 const submitBtn = document.getElementById('submit');
 submit.addEventListener('click', addBookToLibrary);
 
-// function to display books on their own card
 function getUserInput(e) {
-    // get input from the the modal and put it in to a new object
     const title = document.getElementById('title').value;
     const author = document.getElementById('author').value;
     const pages = document.getElementById('pages').value;
     const read = document.getElementById('read').checked;
 
     const newBook = new Book(title, author, pages, read);
-    // console.log(newBook);
     e.preventDefault();
 
     return newBook;
@@ -65,20 +69,22 @@ function addBookToLibrary(e) {
     closeModal();
     document.getElementById('form').reset();
     displayBooks();
+    saveStorage();
 }
 
 // display books in library
 function displayBooks() {
+  if (myLibrary.length == 0) {
+    return;
+  }
   const grid = document.querySelector('.book-grid');
   const br = document.createElement("br");
-  // console.log(document.querySelectorAll('.book').length);
   const curNumCards = document.querySelectorAll('.book').length;
   if (curNumCards < myLibrary.length) {
     for (let i = curNumCards; i < myLibrary.length; i++) {
       let div = document.createElement('div');
       div.classList.add('book');
       
-      // if attribute already exists, then skip
       div.setAttribute('data-indexnumber', i);
   
       let h2 = document.createElement('H2');
@@ -99,7 +105,7 @@ function displayBooks() {
       readBtn.classList.add('book-btn');
 
       let readBtnText;
-      if (myLibrary[i].read == 'true') {
+      if (myLibrary[i].read == true) {
         readBtnText = document.createTextNode("READ");
         readBtn.classList.add('read-btn');
       } else {
@@ -127,24 +133,24 @@ function displayBooks() {
 }
 
 function toggleRead(e) {
-  let curBook = myLibrary[e.target.parentElement.parentElement.getAttribute("data-indexnumber")];
-  
-  if (curBook.read == 'true') {
-    console.log("inside read");
+  let curBook = myLibrary[e.target.closest("div").getAttribute("data-indexnumber")];
+
+  if (curBook.read == true) {
+    // console.log("inside read");
     e.target.classList.remove("read-btn");
     e.target.classList.add("notread-btn");
     e.target.innerHTML = "NOT READ";
   } else {
-    console.log("inside notread");
+    // console.log("inside notread");
     e.target.classList.remove("notread-btn");
     e.target.classList.add("read-btn");
     e.target.innerHTML = "READ";
   }
-
+  console.log(myLibrary);
   curBook.changeStatus();
+  saveStorage();
 }
 
-displayBooks();
 const readBtns = document.querySelectorAll('#read-btn');
 readBtns.forEach(button => button.addEventListener('click', toggleRead));
 
@@ -156,6 +162,7 @@ function removeBook(e) {
 
   displayBooks();
   updateArray();
+  saveStorage();
 }
 
 const removeBtns = document.querySelectorAll('#remove-btn');
@@ -172,8 +179,23 @@ function updateArray() {
   }
 }
 
-const grid = document.querySelector('.book-grid');
-console.log(grid.children[0]);
+function saveStorage() {
+  localStorage.setItem('library', JSON.stringify(myLibrary));
+}
+
+function restoreStorage() {
+  myLibrary = localStorage.getItem('library') 
+    ? JSON.parse(localStorage.getItem('library')) : [];
+  
+  if (myLibrary.length > 0) {
+    displayBooks();
+  }
+}
+
+restoreStorage();
+
+
+
 // check if book being added is already in the array
 // reset grid 
 // recreate grid
