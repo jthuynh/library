@@ -123,13 +123,11 @@ function toggleRead(e) {
   let curBook = myLibrary[e.target.closest("div").getAttribute("data-indexnumber")];
 
   if (curBook.read == true) {
-    console.log("inside read");
     e.target.classList.remove("read-btn");
     e.target.classList.add("notread-btn");
     e.target.innerHTML = "NOT READ";
     curBook.read = false;
   } else {
-    console.log("inside notread");
     e.target.classList.remove("notread-btn");
     e.target.classList.add("read-btn");
     e.target.innerHTML = "READ";
